@@ -1,0 +1,63 @@
+<section
+  class="h-full"
+  [class]="toneClass()"
+  role="status"
+  aria-live="polite"
+  aria-atomic="true"
+>
+  <div class="flex gap-3">
+    <span
+      class="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface/70 ring-1 ring-border"
+      aria-hidden="true"
+    >
+      @switch (notification().kind) {
+        @case ('completed') {
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M16.704 5.29a1 1 0 0 1 .006 1.414l-7.25 7.333a1 1 0 0 1-1.432.012L3.28 9.96a1 1 0 1 1 1.44-1.388l3.99 4.142 6.534-6.61a1 1 0 0 1 1.46.186Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        }
+        @case ('close') {
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm.75 4a.75.75 0 0 0-1.5 0v4.19l-2.28 2.28a.75.75 0 1 0 1.06 1.06l2.47-2.47A.75.75 0 0 0 10.75 10V6Z"
+            />
+          </svg>
+        }
+        @case ('exceeded') {
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M8.257 3.099c.765-1.36 2.72-1.36 3.486 0l6.518 11.59c.75 1.335-.213 2.986-1.742 2.986H3.48c-1.53 0-2.493-1.65-1.743-2.986L8.257 3.1ZM10 7a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 7Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        }
+        @case ('below') {
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              d="M10 2a8 8 0 1 0 .001 16.001A8 8 0 0 0 10 2Zm-.75 4.75a.75.75 0 0 1 1.5 0v4.19l2.28 2.28a.75.75 0 1 1-1.06 1.06l-2.47-2.47A.75.75 0 0 1 9.25 11V6.75Z"
+            />
+          </svg>
+        }
+        @default {
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0ZM9.25 7.5a.75.75 0 0 1 1.5 0v.01a.75.75 0 0 1-1.5 0V7.5ZM10 9.25a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 9.25Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        }
+      }
+    </span>
+
+    <div class="min-w-0 space-y-1">
+      <h2 class="text-base font-semibold tracking-tight">{{ title() }}</h2>
+      <p class="text-sm leading-relaxed opacity-90">{{ message() }}</p>
+    </div>
+  </div>
+</section>

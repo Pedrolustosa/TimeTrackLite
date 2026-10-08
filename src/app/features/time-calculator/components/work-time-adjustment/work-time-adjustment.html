@@ -1,0 +1,92 @@
+<section class="ui-card" aria-labelledby="adjustment-title">
+  <header class="mb-5 space-y-1">
+    <h2 id="adjustment-title" class="ui-section-title">
+      {{ t().adjustment.title }}
+    </h2>
+    <p class="ui-section-subtitle">{{ t().adjustment.description }}</p>
+  </header>
+
+  @if (!enabled()) {
+    <p class="ui-section-subtitle">{{ t().adjustment.unavailable }}</p>
+  } @else {
+    <fieldset class="space-y-3">
+      <legend class="ui-label">
+        {{ t().adjustment.optionsLabel }}
+      </legend>
+
+      <div
+        class="grid grid-cols-1 gap-2 sm:grid-cols-2"
+        role="radiogroup"
+        [attr.aria-label]="t().adjustment.optionsLabel"
+      >
+        @for (field of fields; track field) {
+          <button
+            type="button"
+            role="radio"
+            class="ui-option w-full"
+            [class.ui-option-selected]="selectedField() === field"
+            [attr.aria-checked]="selectedField() === field"
+            (click)="selectField(field)"
+          >
+            {{ optionLabel(field) }}
+          </button>
+        }
+      </div>
+    </fieldset>
+
+    @if (!selectedField()) {
+      <p class="mt-5 ui-section-subtitle">{{ t().adjustment.incompleteHint }}</p>
+    } @else if (preview(); as preview) {
+      <div class="ui-card-elevated mt-5 space-y-4">
+        <h3 class="text-sm font-semibold text-fg">
+          {{ t().adjustment.previewTitle }} — {{ optionLabel(preview.field) }}
+        </h3>
+
+        @if (!preview.isValid) {
+          <p class="text-sm text-danger-fg" role="alert">
+            {{ t().adjustment.invalidSuggestion }}
+          </p>
+        } @else {
+          <dl class="grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
+            <div class="rounded-lg border border-border bg-surface px-3 py-3">
+              <dt class="ui-metric-label">{{ t().adjustment.currentTime }}</dt>
+              <dd class="ui-metric-value mt-1">{{ preview.currentTime }}</dd>
+            </div>
+            <div class="rounded-lg border border-border bg-surface px-3 py-3">
+              <dt class="ui-metric-label">{{ t().adjustment.suggestedTime }}</dt>
+              <dd class="ui-metric-value mt-1 text-primary">{{ preview.suggestedTime }}</dd>
+            </div>
+            <div class="rounded-lg border border-border bg-surface px-3 py-3">
+              <dt class="ui-metric-label">{{ t().adjustment.difference }}</dt>
+              <dd class="mt-1 text-sm font-medium text-fg">{{ differenceLabel(preview) }}</dd>
+            </div>
+            <div class="rounded-lg border border-border bg-surface px-3 py-3">
+              <dt class="ui-metric-label">{{ t().adjustment.totalAfter }}</dt>
+              <dd class="ui-metric-value mt-1">{{ totalAfterLabel(preview) }}</dd>
+            </div>
+          </dl>
+
+          @if (preview.meetsGoal) {
+            <p class="text-sm font-medium text-success-fg">
+              {{ t().adjustment.goalConfirmation }}
+            </p>
+          }
+        }
+
+        <div class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+          <button type="button" class="ui-btn-secondary w-full sm:w-auto" (click)="cancel()">
+            {{ t().adjustment.cancel }}
+          </button>
+          <button
+            type="button"
+            class="ui-btn-primary w-full sm:w-auto"
+            [disabled]="!preview.isValid"
+            (click)="apply()"
+          >
+            {{ t().adjustment.apply }}
+          </button>
+        </div>
+      </div>
+    }
+  }
+</section>

@@ -1,0 +1,24 @@
+<button
+  type="button"
+  class="ui-btn-icon"
+  [attr.aria-label]="actionLabel()"
+  [attr.title]="actionLabel()"
+  (click)="toggle()"
+>
+  @if (theme() === 'light') {
+    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path
+        d="M10 3.5a.75.75 0 0 1 .75.75V5a.75.75 0 0 1-1.5 0V4.25A.75.75 0 0 1 10 3.5Zm0 10a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0v-.75A.75.75 0 0 1 10 13.5Zm6.5-3.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1 0-1.5h.75a.75.75 0 0 1 .75.75ZM5.75 10a.75.75 0 0 1-.75.75H4.25a.75.75 0 0 1 0-1.5H5a.75.75 0 0 1 .75.75Zm8.657-4.407a.75.75 0 0 1 0 1.06l-.53.53a.75.75 0 1 1-1.06-1.06l.53-.53a.75.75 0 0 1 1.06 0Zm-7.674 7.674a.75.75 0 0 1 0 1.06l-.53.53a.75.75 0 1 1-1.06-1.06l.53-.53a.75.75 0 0 1 1.06 0Zm7.674 1.06a.75.75 0 0 1-1.06 0l-.53-.53a.75.75 0 1 1 1.06-1.06l.53.53a.75.75 0 0 1 0 1.06ZM7.203 6.183a.75.75 0 0 1-1.06 0l-.53-.53a.75.75 0 0 1 1.06-1.06l.53.53a.75.75 0 0 1 0 1.06ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"
+      />
+    </svg>
+  } @else {
+    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path
+        fill-rule="evenodd"
+        d="M7.455 2.104a.75.75 0 0 1 .14 1.05 6.5 6.5 0 0 0 9.251 9.251.75.75 0 1 1 1.19.89A8 8 0 1 1 6.405 2.244a.75.75 0 0 1 1.05.14Z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  }
+  <span class="sr-only">{{ currentThemeLabel() }}</span>
+</button>
