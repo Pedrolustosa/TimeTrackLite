@@ -1,11 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ThemeService } from './core/theme/theme.service';
+import { TimeCalculatorPageComponent } from './features/time-calculator/components/time-calculator-page/time-calculator-page';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [TimeCalculatorPageComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('TimeTrackLite');
+  /** Ensures theme tokens are applied on bootstrap. */
+  private readonly themeService = inject(ThemeService);
 }

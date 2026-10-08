@@ -1,1 +1,232 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Semantic design tokens consumed by Tailwind utilities (bg-canvas, text-fg, …). */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-primary-soft: var(--primary-soft);
+  --color-success: var(--success);
+  --color-success-fg: var(--success-fg);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-fg: var(--warning-fg);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-fg: var(--danger-fg);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-fg: var(--info-fg);
+  --color-info-soft: var(--info-soft);
+  --color-neutral-soft: var(--neutral-soft);
+  --color-focus-ring: var(--focus-ring);
+  --shadow-card: var(--shadow-card);
+  --font-sans: "Segoe UI", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+
+  --canvas: #f8fafc;
+  --surface: #ffffff;
+  --surface-elevated: #f1f5f9;
+  --fg: #0f172a;
+  --fg-muted: #64748b;
+  --border: #e2e8f0;
+  --primary: #2563eb;
+  --primary-fg: #ffffff;
+  --primary-soft: #dbeafe;
+  --success: #16a34a;
+  --success-fg: #14532d;
+  --success-soft: #dcfce7;
+  --warning: #d97706;
+  --warning-fg: #78350f;
+  --warning-soft: #fef3c7;
+  --danger: #dc2626;
+  --danger-fg: #7f1d1d;
+  --danger-soft: #fee2e2;
+  --info: #0284c7;
+  --info-fg: #0c4a6e;
+  --info-soft: #e0f2fe;
+  --neutral-soft: #f1f5f9;
+  --focus-ring: rgb(37 99 235 / 0.35);
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.06);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --canvas: #0b1120;
+  --surface: #111827;
+  --surface-elevated: #1f2937;
+  --fg: #f1f5f9;
+  --fg-muted: #94a3b8;
+  --border: #334155;
+  --primary: #60a5fa;
+  --primary-fg: #0b1120;
+  --primary-soft: #1e3a5f;
+  --success: #4ade80;
+  --success-fg: #dcfce7;
+  --success-soft: #14532d;
+  --warning: #fbbf24;
+  --warning-fg: #fef3c7;
+  --warning-soft: #78350f;
+  --danger: #f87171;
+  --danger-fg: #fee2e2;
+  --danger-soft: #7f1d1d;
+  --info: #38bdf8;
+  --info-fg: #e0f2fe;
+  --info-soft: #0c4a6e;
+  --neutral-soft: #1f2937;
+  --focus-ring: rgb(96 165 250 / 0.45);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.35), 0 1px 3px rgb(0 0 0 / 0.25);
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply m-0 min-h-dvh bg-canvas font-sans text-fg;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .ui-card {
+    @apply rounded-xl border border-border bg-surface p-5 sm:p-6;
+    box-shadow: var(--shadow-card);
+  }
+
+  .ui-card-elevated {
+    @apply rounded-lg border border-border bg-surface-elevated p-4;
+  }
+
+  .ui-section-title {
+    @apply text-lg font-semibold tracking-tight text-fg;
+  }
+
+  .ui-section-subtitle {
+    @apply text-sm leading-relaxed text-fg-muted;
+  }
+
+  .ui-label {
+    @apply text-sm font-medium text-fg;
+  }
+
+  .ui-input {
+    @apply h-11 w-full rounded-lg border border-border bg-surface px-3 text-sm text-fg
+      transition-colors placeholder:text-fg-muted
+      hover:border-fg-muted/50
+      focus:border-primary focus:outline-none focus:ring-2 focus:ring-focus-ring
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .ui-input-error {
+    @apply border-danger focus:border-danger focus:ring-danger/30;
+  }
+
+  .ui-select {
+    @apply h-11 w-full appearance-auto rounded-lg border border-border bg-surface px-3 pr-8 text-sm text-fg
+      transition-colors
+      hover:border-fg-muted/50
+      focus:border-primary focus:outline-none focus:ring-2 focus:ring-focus-ring
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .ui-btn-primary {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium
+      text-primary-fg transition-colors hover:opacity-90 active:opacity-80
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .ui-btn-secondary {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4
+      text-sm font-medium text-fg transition-colors hover:bg-surface-elevated active:bg-surface-elevated
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .ui-btn-icon {
+    @apply inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border
+      bg-surface text-fg transition-colors hover:bg-surface-elevated
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring
+      active:bg-surface-elevated;
+  }
+
+  .ui-metric-label {
+    @apply text-xs font-medium uppercase tracking-wide text-fg-muted;
+  }
+
+  .ui-metric-value {
+    @apply text-xl font-semibold tabular-nums tracking-tight text-fg;
+  }
+
+  .ui-metric-value-lg {
+    @apply text-3xl font-bold tabular-nums tracking-tight text-fg sm:text-4xl;
+  }
+
+  .ui-chip-success {
+    @apply inline-flex items-center rounded-md bg-success-soft px-2.5 py-1 text-xs font-semibold
+      text-success-fg ring-1 ring-inset ring-success/30;
+  }
+
+  .ui-chip-warning {
+    @apply inline-flex items-center rounded-md bg-warning-soft px-2.5 py-1 text-xs font-semibold
+      text-warning-fg ring-1 ring-inset ring-warning/30;
+  }
+
+  .ui-chip-info {
+    @apply inline-flex items-center rounded-md bg-info-soft px-2.5 py-1 text-xs font-semibold
+      text-info-fg ring-1 ring-inset ring-info/30;
+  }
+
+  .ui-chip-neutral {
+    @apply inline-flex items-center rounded-md bg-neutral-soft px-2.5 py-1 text-xs font-semibold
+      text-fg-muted ring-1 ring-inset ring-border;
+  }
+
+  .ui-notice-success {
+    @apply rounded-xl border border-success/30 bg-success-soft p-4 text-success-fg sm:p-5;
+  }
+
+  .ui-notice-warning {
+    @apply rounded-xl border border-warning/30 bg-warning-soft p-4 text-warning-fg sm:p-5;
+  }
+
+  .ui-notice-info {
+    @apply rounded-xl border border-info/30 bg-info-soft p-4 text-info-fg sm:p-5;
+  }
+
+  .ui-notice-neutral {
+    @apply rounded-xl border border-border bg-surface p-4 text-fg sm:p-5;
+  }
+
+  .ui-notice-danger {
+    @apply rounded-xl border border-danger/30 bg-danger-soft p-4 text-danger-fg sm:p-5;
+  }
+
+  .ui-option {
+    @apply rounded-lg border border-border bg-surface px-3 py-3 text-left text-sm text-fg
+      transition-colors hover:bg-surface-elevated
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring;
+  }
+
+  .ui-option-selected {
+    @apply border-primary bg-primary-soft text-fg;
+  }
+}

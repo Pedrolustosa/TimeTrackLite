@@ -1,0 +1,15 @@
+<div class="flex min-w-0 items-center gap-2">
+  <label for="language-select" class="ui-label shrink-0 whitespace-nowrap">
+    {{ t().language.label }}
+  </label>
+  <select
+    id="language-select"
+    class="ui-select max-w-[11.5rem] sm:max-w-none"
+    [value]="language()"
+    (change)="onLanguageChange($event)"
+  >
+    @for (option of options; track option) {
+      <option [value]="option">{{ labelFor(option) }}</option>
+    }
+  </select>
+</div>

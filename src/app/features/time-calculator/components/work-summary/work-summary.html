@@ -1,0 +1,57 @@
+<section class="ui-card h-full" aria-labelledby="summary-title">
+  <header class="mb-5">
+    <h2 id="summary-title" class="ui-section-title">
+      {{ t().summary.title }}
+    </h2>
+  </header>
+
+  @if (!result().isComplete) {
+    <p class="mb-5 ui-section-subtitle">{{ t().summary.incomplete }}</p>
+  }
+
+  <div class="ui-card-elevated mb-4">
+    <p class="ui-metric-label">{{ t().summary.totalWorked }}</p>
+    <p class="ui-metric-value-lg mt-1">
+      {{ formatDuration(result().totalMinutes) }}
+    </p>
+  </div>
+
+  <dl class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+    <div class="rounded-lg border border-border bg-surface px-3 py-3">
+      <dt class="ui-metric-label">{{ t().summary.dailyGoal }}</dt>
+      <dd class="ui-metric-value mt-1">
+        {{ formatDuration(result().dailyGoalMinutes) }}
+      </dd>
+    </div>
+
+    <div class="rounded-lg border border-border bg-surface px-3 py-3">
+      <dt class="ui-metric-label">{{ t().summary.balance }}</dt>
+      <dd class="ui-metric-value mt-1">
+        {{ formatBalance(result().balanceMinutes) }}
+      </dd>
+    </div>
+
+    <div class="rounded-lg border border-border bg-surface px-3 py-3">
+      <dt class="ui-metric-label">{{ t().summary.remaining }}</dt>
+      <dd class="ui-metric-value mt-1">
+        {{ formatDuration(result().remainingMinutes) }}
+      </dd>
+    </div>
+
+    <div class="rounded-lg border border-border bg-surface px-3 py-3">
+      <dt class="ui-metric-label">{{ t().summary.projectedEnd }}</dt>
+      <dd class="ui-metric-value mt-1">
+        {{ formatClock(result().projectedEndTime) }}
+      </dd>
+    </div>
+
+    <div class="rounded-lg border border-border bg-surface px-3 py-3 sm:col-span-2 xl:col-span-2">
+      <dt class="ui-metric-label">{{ t().summary.status }}</dt>
+      <dd class="mt-2">
+        <span [class]="statusClass()">
+          {{ statusLabel() }}
+        </span>
+      </dd>
+    </div>
+  </dl>
+</section>
